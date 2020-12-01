@@ -17,10 +17,12 @@ class Node:
     def __init__(self, value):
         self.value = value
         self.next = None
+        self.prev = None
 
     def __str__(self):
         string = '{'
-        string += 'value: {}, next: {}'.format(self.value, self.next)
+        string += 'value: {}, next: {}, prev: {}'.format(
+            self.value, self.next, self.prev.value if self.prev is not None else None)
         string += '}'
         return string
 
@@ -33,12 +35,14 @@ class LinkedList:
 
     def append(self, value):
         newNode = Node(value)
+        newNode.prev = self.tail # Different from singlyLinkedLists
         self.tail.next = newNode
         self.tail = newNode
         self.size += 1
 
     def prepend(self, value):
         newNode = Node(value)
+        self.head.prev = newNode # Different from singlyLinkedLists
         newNode.next = self.head
         self.head = newNode
         self.size += 1
@@ -51,7 +55,9 @@ class LinkedList:
                 currentNode = self._getNodeAtIndex(index - 1)
                 newNode = Node(value)
                 nextNode = currentNode.next
+                nextNode.prev = newNode # Different from singlyLinkedLists
                 newNode.next = nextNode
+                newNode.prev = currentNode # Different from singlyLinkedLists
                 currentNode.next = newNode
                 self.size += 1
 
@@ -59,43 +65,16 @@ class LinkedList:
         if index < self.size and index >= 0:
             if index == 0:
                 self.head = self.head.next
+                self.head.prev = None
             else:
                 currentNode = self._getNodeAtIndex(index - 1)
-                nextNode = currentNode.next
-                currentNode.next = nextNode.next
+                NodeToRemove = currentNode.next
+                NodeToRemove.prev = currentNode # Different from singlyLinkedLists
+                currentNode.next = NodeToRemove.next
                 if index == self.size - 1:
                     self.tail = currentNode
             self.size -= 1
 
-    def reverse(self):
-        currentNode = self.head
-        tmpArray = []
-
-        while currentNode is not None:
-            tmpArray.append(currentNode.value) # O(1)
-            currentNode = currentNode.next
-
-        arrayLen = len(tmpArray)
-        currentNode = self.head
-
-        for i in range(arrayLen - 1, -1, -1):
-            currentNode.value = tmpArray[i] #O(1)
-            currentNode = currentNode.next
-            
-    # def reverse(self):
-    #     currentNode = self.head
-    #     i = 0
-
-    #     while currentNode is not None:
-    #         self.prepend(currentNode.value) #O(1)
-    #         currentNode = currentNode.next
-    #         i += 1
-
-    #     j = self.size *2
-    #     while j >= i:
-    #         self.remove(j) #O(n)
-    #         j -= 1
-    
     def _getNodeAtIndex(self, index):
         currentNode = self.head
         for i in range(index):
@@ -109,24 +88,25 @@ class LinkedList:
         string += '  head:{\n'
         string += '    value: {}\n'.format(self.head.value)
         string += '    next: {}\n'.format(self.head.next)
+        string += '    prev: {}\n'.format(self.head.prev)
         string += '  },\n'
         string += '  tail:\n'
         string += '    value: {}\n'.format(self.tail.value)
         string += '    next: {}\n'.format(self.tail.next)
+        string += '    prev: {}\n'.format(self.tail.prev)
         string += '  }\n'
         string += '  size: {}\n'.format(self.size)
         string += '}\n'
         return string
 
 
-linkedList = LinkedList(10)
-linkedList.append(30)
-linkedList.append(40)
-linkedList.prepend(0)
+linkedList = LinkedList(1)
+linkedList.append(3)
+linkedList.append(4)
 # print('Append', linkedList)
-linkedList.insert(20, 2)
+linkedList.prepend(0)
+# print('Preppend', linkedList)
+linkedList.insert(2, 2)
 # print('Insert', linkedList)
 linkedList.remove(4)
-# print('Remove', linkedList)
-linkedList.reverse()
-print('Reverse', linkedList)
+print('Remove', linkedList)
