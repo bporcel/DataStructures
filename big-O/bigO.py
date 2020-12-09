@@ -68,16 +68,10 @@ factorialTime(4)
 
 # O(n!) -- Worst performance ever. One loop for each element.
 
+# O(2^n) -> Exponential Time:  Recursive algorithms that solve a problem of size n
+def fibonacciRecursive(index):
+    if index < 2:
+        return index
+    return fibonacciRecursive(index - 2) + fibonacciRecursive(index - 1)
 
-
-
-
-
-
-
-
-
-
-
-
-
+fibonacciRecursive(5)
