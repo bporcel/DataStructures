@@ -1,3 +1,4 @@
+# Normally used for educational purpouses
 def bubbleSort(numbers):
     for i in range(len(numbers)):
         for j in range(len(numbers) -1):

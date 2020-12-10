@@ -1,3 +1,4 @@
+# Normally used for educational purpouses
 def selectionSort(numbers):
     for i in range(len(numbers)):
         smallest = numbers[i]
