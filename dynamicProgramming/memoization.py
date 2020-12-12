@@ -11,12 +11,12 @@ def memoizedAddTo80(n):
 
 cache = {}
 
-print('Memo cutre 1 ->', memoizedAddTo80(5))
-print('Memo cutre 2 ->', memoizedAddTo80(5))
+print('Memo without closure 1 ->', memoizedAddTo80(5))
+print('Memo without closure 2 ->', memoizedAddTo80(5))
 
 # ------------------------------------
 
-def memoizedAddTo80ProStyle():
+def memoizedAddTo80Closure():
     cache = {}
 
     def addTo80(n):
@@ -27,6 +27,6 @@ def memoizedAddTo80ProStyle():
             cache[n] = 80 + n
             return cache[n]
     return addTo80
-memoized = memoizedAddTo80ProStyle()
-print('Memo pro 1 -> ', memoized(5))
-print('Memo pro 2 -> ', memoized(5))
+memoized = memoizedAddTo80Closure()
+print('Memo with closure 1 -> ', memoized(5))
+print('Memo with closure 2 -> ', memoized(5))
