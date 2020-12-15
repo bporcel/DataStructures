@@ -1,5 +1,5 @@
 strings = ['a', 'b', 'c', 'd']
-# En un sistema de 8 bits, utilizariamos 4 Bytes por cada elemento del array.
+# On an 8 bits system, we would use 4 Bytes for each element in the array.
 # 4*4 = 16 Bytes
 
 # Access O(1)
